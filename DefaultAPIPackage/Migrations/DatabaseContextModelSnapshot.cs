@@ -93,6 +93,41 @@ namespace DefaultAPIPackage.Migrations
 
                     b.ToTable("TextResourceKeyValues");
                 });
+
+            modelBuilder.Entity("DefaultAPIPackage.Models.Entities.Screen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ScreenName")
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Screens");
+                });
+
+            modelBuilder.Entity("DefaultAPIPackage.Models.Entities.TenantScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TenantScreens");
+                });
 #pragma warning restore 612, 618
         }
     }
