@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DefaultAPIPackage.DTOs
 {
-    public class GetScreens
+    public class CommonModel : GetModuleAccessModel
     {
-        public bool IsOwner { get; set; }
         public int TenantId { get; set; }
     }
 }

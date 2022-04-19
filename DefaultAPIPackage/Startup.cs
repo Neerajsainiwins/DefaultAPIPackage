@@ -1,4 +1,5 @@
 using DefaultAPIPackage.API.Models;
+using DefaultAPIPackage.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,7 @@ namespace DefaultAPIPackage.API
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<IModulePermission, ModulePermissionRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

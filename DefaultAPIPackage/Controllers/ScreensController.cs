@@ -24,7 +24,7 @@ namespace DefaultAPIPackage.Controllers
         public IEnumerable<Screen> GetScreens([FromQuery] GetScreens model)
         {
             IEnumerable<Screen> screens = new List<Screen>();
-            if (model.IsSuperAdmin == true)
+            if (model.IsOwner == true)
             {
                 screens = _dbContext.Screens.ToList();
             }
