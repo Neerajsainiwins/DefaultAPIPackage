@@ -9,6 +9,7 @@ namespace DefaultAPIPackage.Services
 {
     public interface IModulePermission
     {
-        Task<IEnumerable<GetModuleAccessModel>> GetModulePermissions(CommonModel model);
+        GetModuleAccessResponseModel GetModulePermissions(int tenantId);
+        Task<ResponseModel> AddModulePermissions(CommonModel model);
     }
 }

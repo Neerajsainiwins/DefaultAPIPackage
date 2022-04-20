@@ -8,6 +8,10 @@ namespace DefaultAPIPackage.DTOs
 {
     public class GetModuleAccessModel
     {
+        public string ScreenPermissions { get; set; }
+    }
+    public class GetModuleAccessResponseModel
+    {
         public List<ScreenPermission> ScreenPermissions { get; set; }
     }
 

@@ -20,10 +20,16 @@ namespace DefaultAPIPackage.Controllers
             _modulePermission = modulePermission;
         }
 
-        [HttpPost("GetModulePermissions")]
-        public async Task<IEnumerable<GetModuleAccessModel>> GetModulePermissions([FromBody] CommonModel model)
+        [HttpGet("GetModulePermissions")]
+        public GetModuleAccessResponseModel GetModulePermissions(int tenantId)
         {
-            return await _modulePermission.GetModulePermissions(model);
+            return _modulePermission.GetModulePermissions(tenantId);
+        }
+
+        [HttpPost("AddModulePermissions")]
+        public async Task<ResponseModel> AddModulePermissions([FromBody] CommonModel model)
+        {
+            return await _modulePermission.AddModulePermissions(model);
         }
     }
 }

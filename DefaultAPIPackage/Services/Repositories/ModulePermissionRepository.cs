@@ -1,4 +1,5 @@
-﻿using DefaultAPIPackage.API.Models;
+﻿using Dapper;
+using DefaultAPIPackage.API.Models;
 using DefaultAPIPackage.Dapper;
 using DefaultAPIPackage.DTOs;
 using DefaultAPIPackage.Models.Entities;
@@ -18,13 +19,27 @@ namespace DefaultAPIPackage.Services
         {
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<GetModuleAccessModel>> GetModulePermissions(CommonModel model)
+
+        public async Task<ResponseModel> AddModulePermissions(CommonModel model)
         {
-            ModuleAccessRequestModel requestModel = new ModuleAccessRequestModel();
+            AddModuleAccessModel requestModel = new AddModuleAccessModel();
             requestModel.TenantId = model.TenantId;
             requestModel.ScreenPermissions = JsonConvert.SerializeObject(model.ScreenPermissions);
-            var result = await CollectionsAsync<GetModuleAccessModel>("sp_GetModulePermissions", requestModel);
-            return result; 
+            return await CommandAsync<ResponseModel>("sp_AddModulePermissions", requestModel);
+        }
+
+        public GetModuleAccessResponseModel GetModulePermissions(int tenantId)
+        {
+            GetModuleAccessResponseModel response = new GetModuleAccessResponseModel();
+            var result = new List<ScreenPermission>();
+            var param = new DynamicParameters();
+            param.Add("@TenantId", tenantId);
+            var res = CollectionsAsync<GetModuleAccessModel>("sp_GetModulePermissions", param).Result.ToList();
+            var data = res[0].ScreenPermissions;
+            if (data != null)
+                result = JsonConvert.DeserializeObject<List<ScreenPermission>>(data);
+            response.ScreenPermissions = result;
+            return response; 
         }
     }
 }

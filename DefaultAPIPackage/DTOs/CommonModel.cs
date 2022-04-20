@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace DefaultAPIPackage.DTOs
 {
-    public class CommonModel : GetModuleAccessModel
+    public class CommonModel : GetModuleAccessResponseModel
     {
         public int TenantId { get; set; }
+    }
+
+    public class AddModuleAccessModel
+    {
+        public int TenantId { get; set; }
+        public string ScreenPermissions { get; set; }
     }
 }
